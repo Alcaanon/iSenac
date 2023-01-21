@@ -4,6 +4,7 @@ import { Login } from 'src/app/interface/login';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
 import { ToastService } from './../../services/toast.service';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -17,24 +18,79 @@ export class LoginPage implements OnInit {
     private usersService: UsuarioService,
     private router: Router,
     private toastService: ToastService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
     this.validaForm();
   }
-  formulario!: FormGroup;
+  formulariologin!: FormGroup;
 
   validaForm(){
-    this.formulario = this.formBuilder.group({
+    this.formulariologin = this.formBuilder.group({
       usuario: ['', [Validators.required]],
       senha: ['', [Validators.required]]
     });
   }
+  
   login: Login = {
     usuario: "",
     senha: ""
   }
 
+ 
+  logar() {
+    const data = {
+    usuario: this.login.usuario,
+    senha: this.login.senha
+    };
+    const url = 'http://localhost:3000/usuario/login';
+    const body = JSON.stringify({usuario: this.login.usuario,
+                                 senha: this.login.senha});
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+    this.http.post(url, body, {headers: headers}).subscribe(
+        (data) => {
+            console.log(data);
+        },
+        (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            } else {
+                console.log('Server-side error occured.');
+            }
+        }
+    );
+}
+
+  /*
+
+  let header = new HttpHeaders({ "Authorization": "Bearer "+token});
+
+   const requestOptions = {  headers: header};                                                                                                                                                                            
+
+    return this.http.get<any>(url, requestOptions)
+        .toPromise()
+        .then(data=> {
+            //...
+            return data;
+    });
+
+
+   logar(){
+    const data = {
+    usuario: this.login.usuario,
+    senha: this.login.senha
+    };
+    this.usersService.login(data)
+    .subscribe({
+    next: (res) => {
+    console.log(res);
+    },
+    error: (e) => console.error(e)
+    });
+  }
+  
   validateInputs() {
     console.log(this.login);
     let usuario = this.login.usuario.trim();
@@ -67,4 +123,22 @@ export class LoginPage implements OnInit {
       );
     }
   }
+
+  cadastro(): void{
+    const data = {
+    usuario: this.usuario.usuario,
+    nome: this.usuario.nome,
+    telefone: this.usuario.telefone,
+    email: this.usuario.email,
+    senha: this.usuario.senha
+    };
+    this.usersService.create(data)
+    .subscribe({
+    next: (res) => {
+    console.log(res);
+    },
+    error: (e) => console.error(e)
+    });
+  }
+  */
 }
