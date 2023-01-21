@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 const usuarioURL = 'http://localhost:3000/usuario/cadastrar';
 const loginURL = 'http://localhost:3000/usuario/login';
-const tokenURL = 'http://localhost:3000/usuario/login';
+const tokenURL = 'http://localhost:3000/usuario/logintoken';
 
 @Injectable({
   providedIn: 'root'
