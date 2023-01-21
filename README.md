@@ -1,2 +1,0 @@
-# iSenac
- Aplicativo Reciclagem - iSenac
