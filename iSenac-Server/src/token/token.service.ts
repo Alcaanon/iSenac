@@ -1,7 +1,5 @@
 import { Injectable, Inject, HttpException, HttpStatus, forwardRef } from '@nestjs/common';
-import { ResultadoDto } from 'src/dto/resultado.dto';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 import { Token } from './token.entity';
 import { UsuarioService } from 'src/usuario/usuario.service';
 import { AuthService } from 'src/auth/auth.service';
@@ -36,7 +34,7 @@ export class TokenService {
     if (objToken){
       let usuario = await this.usuarioService.findOne(objToken.username)      
       return this.authService.login(usuario)
-    }else{ //é uma requisição inválida
+    }else{
       return new HttpException({
         errorMessage: 'Token inválido'
       }, HttpStatus.UNAUTHORIZED)
@@ -49,7 +47,7 @@ export class TokenService {
     if (objToken){
       let usuario = await this.usuarioService.findOne(objToken.username)      
       return usuario
-    }else{ //é uma requisição inválida
+    }else{
       return null
     }
   }

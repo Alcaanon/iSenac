@@ -10,14 +10,15 @@
   <br/>
   <br/>
   
-  <form>
+
+  <form [formGroup]="formulario" (submit)="logar()">
   <div class="input-div">
   <ion-item>
   <h3>Usuário</h3>
   <ion-label class="nome-label">Nome de Usuário</ion-label> <br/><br/>
   </ion-item>
   <ion-item>
-  <ion-input autocomplete="off" type="text" name="username" ></ion-input>
+    <ion-input class="inputs" type="text" class="form-control" id="usuario" name="usuario" [(ngModel)]="login.usuario" formControlName="usuario" placeholder="Insira o Usuário"></ion-input>
   </ion-item>
   </div>
   
@@ -27,14 +28,14 @@
   <ion-label class="nome-label">Senha</ion-label> <br/><br/>
   </ion-item>
   <ion-item>
-  <ion-input autocomplete="off" type="password" name="password" ></ion-input>
+  <ion-input autocomplete="off"  class="inputs"  type="password" class="form-control" id="senha" name="senha" [(ngModel)]="login.senha" formControlName="senha" placeholder="Insira a senha" ></ion-input>
   </ion-item>
   </div>
   
   <ion-item>
   <div class="button-2">
   <ion-buttons>
-  <ion-button color="primary" expand="block" share="round">Entrar</ion-button>
+  <ion-button type="submit" color="primary" expand="block" share="round">Entrar</ion-button>
   </ion-buttons>
   </div>
   </ion-item>
