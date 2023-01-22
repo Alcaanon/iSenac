@@ -39,11 +39,20 @@ export class LoginPage implements OnInit {
   }
 
  
+  validateInputs() {
+    console.log(this.login);
+    let usuario = this.login.usuario.trim();
+    let senha = this.login.senha.trim();
+    return (
+      this.login.usuario &&
+      this.login.senha &&
+      usuario.length > 0 &&
+      senha.length > 0
+    );
+  }
+
   logar() {
-    const data = {
-    usuario: this.login.usuario,
-    senha: this.login.senha
-    };
+    if (this.validateInputs()){
     const url = 'http://localhost:3000/usuario/login';
     const body = JSON.stringify({usuario: this.login.usuario,
                                  senha: this.login.senha});
@@ -61,6 +70,7 @@ export class LoginPage implements OnInit {
             }
         }
     );
+  }
 }
 
   /*
