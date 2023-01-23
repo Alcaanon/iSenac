@@ -5,6 +5,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
 import { ToastService } from './../../services/toast.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,28 +19,33 @@ export class LoginPage implements OnInit {
     private usersService: UsuarioService,
     private router: Router,
     private toastService: ToastService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.validaForm();
+    //this.validaForm();
+        this.formulariologin = this.formBuilder.group({
+          usuario: ['', Validators.required],
+          senha: ['', Validators.required]
+      });
+
   }
   formulariologin!: FormGroup;
 
-  validaForm(){
+  /*validaForm(){
     this.formulariologin = this.formBuilder.group({
       usuario: ['', [Validators.required]],
       senha: ['', [Validators.required]]
     });
-  }
+  }*/
   
   login: Login = {
     usuario: "",
     senha: ""
   }
-
  
-  validateInputs() {
+  /*validateInputs() {
     console.log(this.login);
     let usuario = this.login.usuario.trim();
     let senha = this.login.senha.trim();
@@ -49,9 +55,25 @@ export class LoginPage implements OnInit {
       usuario.length > 0 &&
       senha.length > 0
     );
-  }
+  }*/
 
   logar() {
+    const url = 'http://localhost:3000/usuario/login';
+    const body = JSON.stringify({usuario: this.formulariologin.value.usuario,
+                                 senha: this.formulariologin.value.senha});
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');     
+    this.http.post(url, body, {headers: headers}).subscribe(
+            () =>
+                console.log('Usuário autenticado.'),
+            err => {
+                console.log("Erro", err)                    
+                this.formulariologin.reset();
+            }
+        );
+}
+
+ /* logar() {
     if (this.validateInputs()){
     const url = 'http://localhost:3000/usuario/login';
     const body = JSON.stringify({usuario: this.login.usuario,
@@ -71,7 +93,7 @@ export class LoginPage implements OnInit {
         }
     );
   }
-}
+}*/
 
   /*
 
