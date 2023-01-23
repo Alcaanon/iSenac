@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastService } from './../../services/toast.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginPage implements OnInit {
     private router: Router,
     private toastService: ToastService,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private storage: Storage
   ) { }
 
   ngOnInit(): void {
@@ -57,10 +59,13 @@ export class LoginPage implements OnInit {
     );
   }*/
 
+
   logar() {
+    this.storage.set('usuario', this.formulariologin.value.usuario);
+    this.storage.set('senha', this.formulariologin.value.senha);
     const url = 'http://localhost:3000/usuario/login';
-    const body = JSON.stringify({usuario: this.formulariologin.value.usuario,
-                                 senha: this.formulariologin.value.senha});
+    const body = JSON.stringify({usuario: this.storage.get('usuario'),
+                                  senha: this.storage.get('senha')});
     const headers = new HttpHeaders();
     headers.set('Content-Type', 'application/json');     
     this.http.post(url, body, {headers: headers}).subscribe(
