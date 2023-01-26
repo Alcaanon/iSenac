@@ -29,4 +29,9 @@ export class UsuarioController {
     return this.authService.login(req.user);    
   }
 
+  @Post('login-token')
+  async loginToken(@Request() @Body() data) {
+    return this.authService.loginToken(data.token);    
+  }
+  
 }
