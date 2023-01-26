@@ -10,6 +10,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class InicioPage implements OnInit {
 
   users!: Observable<any>;
+  tokens!: Observable<any>;
 
   constructor(
     private usersService: UsuarioService,
@@ -17,6 +18,7 @@ export class InicioPage implements OnInit {
 
   ngOnInit() {
     this.users= this.usersService.findAll();
+    this.tokens= this.usersService.checktoken();
   }
 
 }

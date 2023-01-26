@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 
 const usuarioURL = 'http://localhost:3000/usuario/';
+const tokenURL = 'http://localhost:3000/token/';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class UsuarioService {
     return this.httpClient.post(usuarioURL+'login', postData);
   }
 
-  logintoken(){
-
+  checktoken(){
+    return this.httpClient.get(tokenURL+'listartoken');
   }
 }
