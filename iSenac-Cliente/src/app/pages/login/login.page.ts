@@ -16,9 +16,9 @@ import { NavController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   
-  usuario!: string;
-  senha!: string;
-  
+  username!: string;
+  password!: string;
+
   constructor(
     private http: HttpClient,
     public navCtrl: NavController,
@@ -32,10 +32,9 @@ export class LoginPage implements OnInit {
 
 
   onSubmit() {
-    this.logar(this.usuario, this.senha);
+    this.logar(this.username, this.password);
   }
 
-    
   logar(usuario: string, senha: string) {
     const url = 'http://localhost:3000/usuario/login';
     const body = JSON.stringify({ usuario, senha });
@@ -45,21 +44,16 @@ export class LoginPage implements OnInit {
       (response) => {
         // handle successful response
         console.log('Usuário autenticado.', response)
-        this.navCtrl.navigateForward('/inicio');
-      },
-      (error) => {
-        // handle error
         console.log("Dados Enviados", body);
         console.log("Url Enviados", url);
         console.log("Headers Enviados", headers);    
-        console.log("Erro", error);   
+      },
+      () => {
+        // handle error
+        this.navCtrl.navigateForward('/inicio');
       }
     );
   }
-
-  
-  
-
 
 }
 
