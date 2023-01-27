@@ -7,24 +7,38 @@
     </ion-header>
     <ion-content class="ion-padding">
       <ion-list-header>
-        <ion-label>Solicitação</ion-label>
+        <ion-label>Tipo de Materiais</ion-label>
       </ion-list-header>
-        <ion-item [routerLink]="['']">
-          <ion-icon slot="start"  name="checkbox"></ion-icon>
-          <ion-label>Atualização <br>de Cadastro</ion-label>
+
+        <ion-item [routerLink]="['/material/papel']">
+          <ion-icon slot="start"  name="document"></ion-icon>
+          <ion-label>Papel</ion-label>
         </ion-item>
-        <ion-item [routerLink]="['']">
+
+        <ion-item [routerLink]="['/material/metal']">
           <ion-icon slot="start"  name="build"></ion-icon>
-          <ion-label>Comunicação <br>de Obra</ion-label>
+          <ion-label>Ferros e Metálicos</ion-label>
         </ion-item>
-        <ion-item [routerLink]="['']">
-          <ion-icon slot="start"  name="logo-usd"></ion-icon>
-          <ion-label>Boletos</ion-label>
+
+        <ion-item [routerLink]="['/material/plastico']">
+          <ion-icon slot="start"  name="football"></ion-icon>
+          <ion-label>Plástico</ion-label>
         </ion-item>
-        <ion-item [routerLink]="['']">
-          <ion-icon slot="start"  name="bookmarks"></ion-icon>
-          <ion-label>Reservas de Espaços</ion-label>
+
+        <ion-item [routerLink]="['/material/vidro']">
+          <ion-icon slot="start"  name="flask"></ion-icon>
+          <ion-label>Vidro</ion-label>
         </ion-item>
+
+        <ion-item [routerLink]="['/material/eletronico']">
+          <ion-icon slot="start"  name="phone-portrait"></ion-icon>
+          <ion-label>Lixo Eletrônico</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/material/especial']">
+          <ion-icon slot="start"  name="nuclear"></ion-icon>
+          <ion-label>Lixo Hospitalar / Radioativo</ion-label>
+        </ion-item>
+
     </ion-content>
   </div>
 </ion-content>
