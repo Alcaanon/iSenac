@@ -35,22 +35,23 @@ export class LoginPage implements OnInit {
     this.logar(this.username, this.password);
   }
 
-  logar(usuario: string, senha: string) {
+  logar(username: string, password: string) {
     const url = 'http://localhost:3000/usuario/login';
-    const body = JSON.stringify({ usuario, senha });
+    const body = JSON.stringify({ username, password });
     const headers = new HttpHeaders();
     headers.set('Content-Type', 'application/json');      
     this.http.post(url, body, {headers: headers}).subscribe(
       (response) => {
         // handle successful response
         console.log('Usuário autenticado.', response)
+        this.navCtrl.navigateForward('/inicio');
+      },
+      (error) => {
+        // handle error
         console.log("Dados Enviados", body);
         console.log("Url Enviados", url);
-        console.log("Headers Enviados", headers);    
-      },
-      () => {
-        // handle error
-        this.navCtrl.navigateForward('/inicio');
+        console.log("Headers Enviados", headers); 
+        console.log(error)   
       }
     );
   }
