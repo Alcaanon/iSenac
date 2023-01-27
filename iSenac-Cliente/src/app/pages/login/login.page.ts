@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Login } from 'src/app/interface/login'; 
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { NavController } from '@ionic/angular';
 
@@ -9,22 +11,34 @@ import { NavController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  
-  username!: string;
-  password!: string;
-
   constructor(
+    private formBuilder:  FormBuilder,
     private usersService: UsuarioService,
     public navCtrl: NavController,
-    ) { }
+  ) { }
 
-  ngOnInit(): void {
+  login: Login = {
+    usuario: "",
+    senha: ""
   }
 
-  onSubmit() {
+  ngOnInit(): void {
+    this.validaForm();
+  }
+  
+  formulariologin!: FormGroup;
+
+  validaForm(){
+    this.formulariologin = this.formBuilder.group({
+      usuario: ['', [Validators.required]],
+      senha: ['', [Validators.required]]
+    });
+  }
+  
+    onSubmit() {
     const body = {
-      username: this.username,
-      password: this.password
+      username: this.login.usuario,
+      password: this.login.senha
     };
     this.usersService.login(body)
     .subscribe({
