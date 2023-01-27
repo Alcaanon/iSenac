@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { ResultadoDto } from 'src/dto/resultado.dto';
 import { Repository } from 'typeorm';
 import { UsuarioCadastrarDto } from './dto/usuario.cadastrar.dto';
+import { UpdateUsuarioDto } from './dto/usuario.update.dto';
 import { Usuario } from './usuario.entity';
 import * as bcrypt from 'bcrypt';
 
@@ -40,5 +41,14 @@ export class UsuarioService {
   
   async findOne(usuario: string): Promise<Usuario | undefined> {
     return this.usuarioRepository.findOne({usuario: usuario});
+  }
+
+  
+  update(id: number, updateUserDto: UpdateUsuarioDto) {
+    return this.usuarioRepository.update(id, updateUserDto);
+  }
+
+  remove(id: number) {
+    return this.usuarioRepository.delete(id);
   }
 }

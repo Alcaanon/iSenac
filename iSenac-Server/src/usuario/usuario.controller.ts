@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ResultadoDto } from 'src/dto/resultado.dto';
 import { UsuarioCadastrarDto } from './dto/usuario.cadastrar.dto';
+import { UpdateUsuarioDto } from './dto/usuario.update.dto';
 import { Usuario } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
 
@@ -34,4 +35,13 @@ export class UsuarioController {
     return this.authService.loginToken(data.token);    
   }
   
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUsuarioDto) {
+    return this.usuarioService.update(+id, updateUserDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.usuarioService.remove(+id);
+  }
 }
