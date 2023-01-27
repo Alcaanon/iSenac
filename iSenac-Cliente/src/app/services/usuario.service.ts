@@ -20,8 +20,8 @@ export class UsuarioService {
     return this.httpClient.get(usuarioURL+'listar');
   }
 
-  login(postData: any): Observable<any> {
-    return this.httpClient.post(usuarioURL+'login', postData);
+  login(body: any): Observable<any> {
+    return this.httpClient.post(usuarioURL+'login', body);
   }
 
 }
